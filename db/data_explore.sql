@@ -81,7 +81,17 @@ describe tb_mesa;
 select count(*) from tb_mesa where num_pessoa_mesa >1;
 
 #Qual o período do ano em que o restaurante tem maior movimento
--- ???
+SELECT
+    year(data_hora_entrada) as ano, month(data_hora_entrada) as mês, count(num_pessoa_mesa) as pessoas
+FROM
+    tb_mesa
+GROUP BY
+    ano,mês
+ORDER BY
+    pessoas DESC
+limit 1;
+
+-- Output :2023/08 462 (pessoas)
 
 # Quantas mesas estão em dupla no dia dos namorados ?
 select count(*),year(data_hora_entrada)
