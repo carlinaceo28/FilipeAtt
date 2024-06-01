@@ -149,8 +149,39 @@ limit 10
 )) as
 tb_top10_major_consumer_per_year;
 
+
 # Qual o cliente que mais fez pedidos por ano
--- ??
+select * 
+from (
+(select year(tb_mesa.data_hora_entrada) as ano, c.id_cliente , c.nome_cliente , sum(tb_pedido.quantidade_pedido) as qtd_pedidos 
+from tb_cliente c
+join tb_mesa on c.id_cliente = tb_mesa.id_cliente
+join tb_pedido on tb_mesa.codigo_mesa  = tb_pedido.codigo_mesa
+where year(tb_mesa.data_hora_entrada) = 2022
+group by c.id_cliente,ano,c.nome_cliente
+order by qtd_pedidos desc
+limit 1)
+union
+(select year(tb_mesa.data_hora_entrada) as ano, c.id_cliente , c.nome_cliente , sum(tb_pedido.quantidade_pedido) as qtd_pedidos 
+from tb_cliente c
+join tb_mesa on c.id_cliente = tb_mesa.id_cliente
+join tb_pedido on tb_mesa.codigo_mesa  = tb_pedido.codigo_mesa
+where year(tb_mesa.data_hora_entrada) = 2023
+group by c.id_cliente,ano,c.nome_cliente
+order by qtd_pedidos desc
+limit 1)
+union(
+select year(tb_mesa.data_hora_entrada) as ano, c.id_cliente , c.nome_cliente , sum(tb_pedido.quantidade_pedido) as qtd_pedidos 
+from tb_cliente c
+join tb_mesa on c.id_cliente = tb_mesa.id_cliente
+join tb_pedido on tb_mesa.codigo_mesa  = tb_pedido.codigo_mesa
+where year(tb_mesa.data_hora_entrada) = 2024
+group by c.id_cliente,ano,c.nome_cliente
+order by qtd_pedidos desc
+limit 1
+)) as
+tb_top_clients_consumer_per_year;
+
 
 # Qual o cliente que mais gastou em todos os anos
 -- ??
