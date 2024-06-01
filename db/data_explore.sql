@@ -180,8 +180,10 @@ group by c.id_cliente,ano,c.nome_cliente
 order by qtd_pedidos desc
 limit 1
 )) as
-tb_top_clients_consumer_per_year;
-
+tb_top_clients_consumer_per_year; 
+-- OutPut: ano (2022) id(49) nome(João Pedro da Luz) qtd_pedidos (381)
+-- OutPut: ano (2023) id(76) nome(Lívia Farias) qtd_pedidos (524)
+-- OutPut: ano (2024) id(1) nome(Ana Laura Casa Grande) qtd_pedidos (281)
 
 # Qual o cliente que mais gastou em todos os anos
 -- ??
