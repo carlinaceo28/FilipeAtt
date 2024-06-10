@@ -186,4 +186,15 @@ tb_top_clients_consumer_per_year;
 -- OutPut: ano (2024) id(1) nome(Ana Laura Casa Grande) qtd_pedidos (281)
 
 # Qual o cliente que mais gastou em todos os anos
--- ??
+
+SELECT
+	cliente.nome_cliente AS cliente,
+	SUM(prato.preco_unitario_prato * CAST(pedido.quantidade_pedido AS DECIMAL)) AS total_gasto
+FROM tb_pedido pedido
+JOIN tb_mesa mesa ON pedido.codigo_mesa = mesa.codigo_mesa
+JOIN tb_cliente cliente ON mesa.id_cliente = cliente.id_cliente
+JOIN tb_prato prato ON pedido.codigo_prato = prato.codigo_prato
+GROUP BY cliente.nome_cliente
+ORDER BY total_gasto DESC
+LIMIT 1;
+-- OutPut: Sr. Ryan das Neves, 55094
